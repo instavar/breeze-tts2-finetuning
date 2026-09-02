@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "description": "One-hundred-step family learning-rate allocation screen for the leading SGD and low-memory Adafactor candidates",
+  "defaults": {
+    "max_steps": 100,
+    "gradient_accumulation": 4,
+    "weight_decay": 0.01,
+    "warmup_steps": 10,
+    "validation_examples": 64,
+    "seed": 42,
+    "max_gradient_norm": 1.0,
+    "save_policy": "none",
+    "validation_every": 100
+  },
+  "trials": [
+    {
+      "name": "sgd-3e-4-uniform",
+      "optimizer": "fp32_master_sgd",
+      "learning_rate": 0.0003,
+      "backbone_lr_multiplier": 1.0,
+      "depth_decoder_lr_multiplier": 1.0,
+      "text_projection_lr_multiplier": 1.0,
+      "other_synthesis_lr_multiplier": 1.0
+    },
+    {
+      "name": "sgd-3e-4-conservative-backbone",
+      "optimizer": "fp32_master_sgd",
+      "learning_rate": 0.0003,
+      "backbone_lr_multiplier": 0.25,
+      "depth_decoder_lr_multiplier": 1.0,
+      "text_projection_lr_multiplier": 1.0,
+      "other_synthesis_lr_multiplier": 0.5
+    },
+    {
+      "name": "sgd-3e-4-head-heavy",
+      "optimizer": "fp32_master_sgd",
+      "learning_rate": 0.0003,
+      "backbone_lr_multiplier": 0.1,
+      "depth_decoder_lr_multiplier": 1.0,
+      "text_projection_lr_multiplier": 1.0,
+      "other_synthesis_lr_multiplier": 1.0
+    },
+    {
+      "name": "adafactor-1e-6-uniform",
+      "optimizer": "adafactor",
+      "learning_rate": 0.000001,
+      "backbone_lr_multiplier": 1.0,
+      "depth_decoder_lr_multiplier": 1.0,
+      "text_projection_lr_multiplier": 1.0,
+      "other_synthesis_lr_multiplier": 1.0
+    },
+    {
+      "name": "adafactor-1e-6-conservative-backbone",
+      "optimizer": "adafactor",
+      "learning_rate": 0.000001,
+      "backbone_lr_multiplier": 0.25,
+      "depth_decoder_lr_multiplier": 1.0,
+      "text_projection_lr_multiplier": 1.0,
+      "other_synthesis_lr_multiplier": 0.5
+    },
+    {
+      "name": "adafactor-1e-6-head-heavy",
+      "optimizer": "adafactor",
+      "learning_rate": 0.000001,
+      "backbone_lr_multiplier": 0.1,
+      "depth_decoder_lr_multiplier": 1.0,
+      "text_projection_lr_multiplier": 1.0,
+      "other_synthesis_lr_multiplier": 1.0
+    }
+  ]
+}

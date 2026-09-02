@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "description": "Expanded SGD learning-rate boundary plus weight decay, clipping, and fixed-example accumulation probes",
+  "defaults": {
+    "optimizer": "fp32_master_sgd",
+    "learning_rate": 0.0003,
+    "gradient_accumulation": 4,
+    "weight_decay": 0.01,
+    "max_steps": 100,
+    "warmup_steps": 10,
+    "validation_examples": 64,
+    "seed": 42,
+    "max_gradient_norm": 1.0,
+    "backbone_lr_multiplier": 1.0,
+    "depth_decoder_lr_multiplier": 1.0,
+    "text_projection_lr_multiplier": 1.0,
+    "other_synthesis_lr_multiplier": 1.0,
+    "save_policy": "none"
+  },
+  "trials": [
+    {
+      "name": "sgd-6e-4",
+      "learning_rate": 0.0006,
+      "validation_every": 100
+    },
+    {
+      "name": "sgd-1e-3",
+      "learning_rate": 0.001,
+      "validation_every": 100
+    },
+    {
+      "name": "sgd-3e-4-no-decay",
+      "weight_decay": 0.0,
+      "validation_every": 100
+    },
+    {
+      "name": "sgd-3e-4-clip-0-5",
+      "max_gradient_norm": 0.5,
+      "validation_every": 100
+    },
+    {
+      "name": "sgd-3e-4-clip-2",
+      "max_gradient_norm": 2.0,
+      "validation_every": 100
+    },
+    {
+      "name": "sgd-3e-4-accum-2",
+      "gradient_accumulation": 2,
+      "max_steps": 200,
+      "warmup_steps": 20,
+      "validation_every": 200
+    },
+    {
+      "name": "sgd-3e-4-accum-8",
+      "gradient_accumulation": 8,
+      "max_steps": 50,
+      "warmup_steps": 5,
+      "validation_every": 50
+    }
+  ]
+}

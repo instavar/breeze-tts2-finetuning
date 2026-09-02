@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "description": "Expanded FP32-master SGD learning-rate boundary screen after 1e-3 won the secondary stage",
+  "defaults": {
+    "optimizer": "fp32_master_sgd",
+    "gradient_accumulation": 4,
+    "weight_decay": 0.01,
+    "max_steps": 100,
+    "warmup_steps": 10,
+    "validation_examples": 64,
+    "seed": 42,
+    "max_gradient_norm": 1.0,
+    "backbone_lr_multiplier": 1.0,
+    "depth_decoder_lr_multiplier": 1.0,
+    "text_projection_lr_multiplier": 1.0,
+    "other_synthesis_lr_multiplier": 1.0,
+    "save_policy": "none",
+    "validation_every": 100
+  },
+  "trials": [
+    {
+      "name": "sgd-2e-3",
+      "learning_rate": 0.002
+    },
+    {
+      "name": "sgd-3e-3",
+      "learning_rate": 0.003
+    },
+    {
+      "name": "sgd-5e-3",
+      "learning_rate": 0.005
+    },
+    {
+      "name": "sgd-1e-2",
+      "learning_rate": 0.01
+    }
+  ]
+}

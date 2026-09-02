@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "description": "Two-learning-rate, two-seed confirmation using the intended one-thousand-step cosine horizon",
+  "defaults": {
+    "optimizer": "fp32_master_sgd",
+    "gradient_accumulation": 4,
+    "weight_decay": 0.01,
+    "max_steps": 250,
+    "warmup_steps": 100,
+    "schedule_horizon_steps": 1000,
+    "validation_examples": 64,
+    "max_gradient_norm": 1.0,
+    "backbone_lr_multiplier": 1.0,
+    "depth_decoder_lr_multiplier": 1.0,
+    "text_projection_lr_multiplier": 1.0,
+    "other_synthesis_lr_multiplier": 1.0,
+    "save_policy": "none",
+    "validation_every": 50
+  },
+  "trials": [
+    {
+      "name": "sgd-5e-3-horizon-1000-seed-42",
+      "learning_rate": 0.005,
+      "seed": 42
+    },
+    {
+      "name": "sgd-5e-3-horizon-1000-seed-314159",
+      "learning_rate": 0.005,
+      "seed": 314159
+    },
+    {
+      "name": "sgd-1e-2-horizon-1000-seed-42",
+      "learning_rate": 0.01,
+      "seed": 42
+    },
+    {
+      "name": "sgd-1e-2-horizon-1000-seed-314159",
+      "learning_rate": 0.01,
+      "seed": 314159
+    }
+  ]
+}

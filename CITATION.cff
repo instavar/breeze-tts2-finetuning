@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this training toolkit, cite this repository and the upstream Breeze TTS 2 project."
+title: "Instavar Breeze TTS 2 Fine-Tuning"
+type: software
+authors:
+  - name: Instavar
+repository-code: "https://github.com/instavar/breeze-tts2-finetuning"
+license: Apache-2.0
+version: 0.1.0
+date-released: 2026-09-02

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "description": "Fifty-step optimizer and learning-rate screen on a frozen supervised cache",
+  "defaults": {
+    "max_steps": 50,
+    "gradient_accumulation": 4,
+    "weight_decay": 0.01,
+    "warmup_steps": 5,
+    "validation_examples": 64,
+    "seed": 42,
+    "max_gradient_norm": 1.0,
+    "backbone_lr_multiplier": 1.0,
+    "depth_decoder_lr_multiplier": 1.0,
+    "text_projection_lr_multiplier": 1.0,
+    "other_synthesis_lr_multiplier": 1.0,
+    "save_policy": "none",
+    "validation_every": 50
+  },
+  "trials": [
+    {
+      "name": "fp32-sgd-2e-5",
+      "optimizer": "fp32_master_sgd",
+      "learning_rate": 0.00002
+    },
+    {
+      "name": "fp32-sgd-1e-4",
+      "optimizer": "fp32_master_sgd",
+      "learning_rate": 0.0001
+    },
+    {
+      "name": "fp32-sgd-3e-4",
+      "optimizer": "fp32_master_sgd",
+      "learning_rate": 0.0003
+    },
+    {
+      "name": "adafactor-1e-6",
+      "optimizer": "adafactor",
+      "learning_rate": 0.000001
+    },
+    {
+      "name": "adafactor-3e-6",
+      "optimizer": "adafactor",
+      "learning_rate": 0.000003
+    },
+    {
+      "name": "adafactor-1e-5",
+      "optimizer": "adafactor",
+      "learning_rate": 0.00001
+    }
+  ]
+}
