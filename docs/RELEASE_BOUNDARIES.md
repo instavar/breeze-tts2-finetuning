@@ -32,4 +32,24 @@ An organization's public branding or first-mover benefit can affect the
 commercial-purpose analysis. Do not infer that a public non-monetized download
 is automatically non-commercial.
 
+## v0.1.0 release decision
+
+Checked on 2026-09-02:
+
+- the public source repository is based on upstream source revision
+  `d76819fa9c042c045e2e0cb9b6285795f677ff90`;
+- the official model repository reported revision
+  `799624c0b4a1daa8db6d28bbd9850043c0270734` and agreement version 1.1;
+- the Apache-licensed source toolkit was approved for public release without
+  model materials; and
+- public LoRA, full-SFT, merged, distilled, or other derivative weights were
+  held back.
+
+The weight hold has two independent reasons. The stated first-mover Instavar
+branding purpose may be an indirect business benefit under version 1.1, so it
+requires written BreezeBlue authorization before public distribution. A public
+weight release also needs a training corpus with separately verified voice,
+recording, and redistribution rights. A technically successful private run is
+not evidence that either release gate has passed.
+
 This document is operational guidance, not legal advice.
