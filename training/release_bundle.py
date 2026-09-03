@@ -277,7 +277,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     args.run(args)
-    print(args.output)
+    result_path = getattr(args, "output", None) or getattr(args, "bundle", None)
+    print(result_path)
     return 0
 
 
