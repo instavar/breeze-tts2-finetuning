@@ -18,7 +18,10 @@ for forbidden in '*.wav' '*.mp3' '*.flac' '*.pt' '*.pth' '*.ckpt' '*.bin' '*.saf
   fi
 done
 
-if git grep -I -n -E '/Users/[^/]+/|/home/[^/]+/|/mnt/(work|ext4)|FEMALE_01|female01' -- . ':!scripts/check_public_tree.sh'; then
+# Exclude the two scanners that must name the markers they reject.
+if git grep -I -n -E '/Users/[^/]+/|/home/[^/]+/|/mnt/(work|ext4)|FEMALE_01|female01' -- . \
+  ':!scripts/check_public_tree.sh' \
+  ':!training/release_bundle.py'; then
   echo "tracked source contains a private path or study identifier" >&2
   exit 1
 fi
