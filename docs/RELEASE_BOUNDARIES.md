@@ -32,7 +32,7 @@ An organization's public branding or first-mover benefit can affect the
 commercial-purpose analysis. Do not infer that a public non-monetized download
 is automatically non-commercial.
 
-## v0.1.0 release decision
+## v0.1.0 source release decision
 
 Checked on 2026-09-02:
 
@@ -51,5 +51,24 @@ requires written BreezeBlue authorization before public distribution. A public
 weight release also needs a training corpus with separately verified voice,
 recording, and redistribution rights. A technically successful private run is
 not evidence that either release gate has passed.
+
+## Subsequent research-artifact decision
+
+The project later narrowed the proposed publication to a non-monetized research
+release rather than a product, hosted service, client deliverable, advertising
+campaign, or production deployment. Organization hosting and incidental public
+reputation do not by themselves make business benefit the primary purpose. The
+speaker subset was also confirmed as National Speech Corpus material covered by
+the Singapore Open Data Licence, with the project's separate consent and rights
+record retained privately.
+
+Under that narrowed purpose, version 1.1 supports distributing the checked LoRA
+and full-SFT derivatives if every agreement, notice, provenance, naming, rights,
+sanitization, and non-commercial restriction is satisfied. This is an
+artifact-specific decision, not a general removal of the release gate for future
+models, datasets, checkpoints, or purposes.
+
+Use `training.release_bundle` and [the model release runbook](RELEASING_MODELS.md).
+Never upload a training checkpoint directory directly.
 
 This document is operational guidance, not legal advice.

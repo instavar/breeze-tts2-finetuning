@@ -30,6 +30,11 @@ REPETITION_PENALTY = 1.1
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate one WAV with Breeze TTS 2")
     parser.add_argument("model", type=Path)
+    parser.add_argument("--adapter", type=Path)
+    parser.add_argument(
+        "--base-revision",
+        help="Exact base revision required by an adapter manifest",
+    )
     parser.add_argument("--text", required=True)
     parser.add_argument("--instruction", default="Speak clearly and naturally.")
     parser.add_argument("--ref-audio", type=Path)
@@ -71,6 +76,8 @@ def main() -> None:
         args.model,
         device=resolve_device(),
         attn_implementation="eager",
+        adapter_root=args.adapter,
+        base_revision=args.base_revision,
     )
     update_generation_config_for_breeze(model)
 

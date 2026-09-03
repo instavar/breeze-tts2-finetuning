@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "release_purpose": "non-commercial research",
+  "source_toolkit": {
+    "repository": "https://github.com/instavar/breeze-tts2-finetuning",
+    "upstream_runtime_revision": "d76819fa9c042c045e2e0cb9b6285795f677ff90"
+  },
+  "training": {
+    "dataset": "IMDA National Speech Corpus, consented single-speaker subset",
+    "train_examples": 1024,
+    "validation_examples": 128,
+    "selection_validation_examples": 64,
+    "optimizer": "fp32_master_sgd",
+    "learning_rate": 0.01,
+    "gradient_accumulation": 4,
+    "max_steps": 1000,
+    "warmup_steps": 100,
+    "weight_decay": 0.01,
+    "max_gradient_norm": 1.0,
+    "seed": 42
+  },
+  "evaluation": {
+    "reference_free_mean_ecapa": 0.6973,
+    "reference_free_wer": 0.0467,
+    "human_reviewers": 1,
+    "interpretation": "Bounded diagnostics only; not proof of identity, accent coverage, or production fitness."
+  }
+}

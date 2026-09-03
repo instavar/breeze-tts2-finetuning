@@ -17,6 +17,7 @@ Instavar is not affiliated with or endorsed by BreezeBlue or RESONIA, INC.
 | Feasibility gate | One BF16 forward and backward step, finite losses, nonzero family gradients, changed weights, and fresh-process reload |
 | LoRA | Backbone, depth decoder, text projection, depth-input projection, and output projection targets |
 | LoRA lifecycle | Trainable-parameter receipt, checkpoint, resume, adapter export, merge, and fresh-process merged reload |
+| Adapter release runtime | Manifest-driven adapter loading with base revision, base-file, and adapter checksum validation |
 | Full SFT | BF16 synthesis model with frozen codec and text encoder, FP32-master SGD or Adafactor, family learning-rate multipliers, and bounded checkpoints |
 | Full-SFT sweeps | JSON plans, multiple seeds, independent schedule horizons, validation-only trials, and lightweight finalist exports |
 | Evaluation | Matched prompts and seeds, ASR, speaker similarity, acoustic diagnostics, confidence intervals, and an opaque blind-listening pack |
@@ -106,6 +107,19 @@ python -m training.real_lora_merged_smoke \
   --merged-model /runs/lora-r8-merged
 ```
 
+Published adapters can also be loaded without creating a merged checkpoint:
+
+```bash
+python infer.py "$BREEZE_MODEL_ROOT" \
+  --adapter /models/sg-narration-lora-r8 \
+  --base-revision <exact-base-revision> \
+  --text "The train arrives in five minutes." \
+  --output output.wav
+```
+
+The adapter manifest pins the base revision and required base-model file hashes.
+Loading fails closed if any pinned identity check differs.
+
 ## Run full SFT
 
 Start with the one-example feasibility gate before committing to a real run:
@@ -156,6 +170,9 @@ governed separately by the BreezeBlue Research and Non-Commercial License.
 The source license does not grant a right to download, use, distribute, or use
 Breeze model materials commercially. See [model license boundary](MODEL_LICENSE.md)
 and [release boundaries](docs/RELEASE_BOUNDARIES.md).
+
+The repository also includes a fail-closed release-bundle builder. See
+[model release operations](docs/RELEASING_MODELS.md).
 
 ## Acknowledgments
 

@@ -51,6 +51,13 @@ def test_cli_and_api_support_1500_generated_tokens() -> None:
     assert CLI_MAX_SEQ_LEN == API_MAX_SEQ_LEN == 2048
 
 
+def test_api_settings_include_adapter_identity() -> None:
+    from breeze_infer.api import ApiSettings
+
+    assert "adapter" in ApiSettings.__dataclass_fields__
+    assert "base_revision" in ApiSettings.__dataclass_fields__
+
+
 def test_pcm16_clips_and_encodes_little_endian() -> None:
     encoded = _pcm16(np.array([-2.0, 0.0, 2.0], dtype=np.float32))
 

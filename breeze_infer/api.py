@@ -37,6 +37,8 @@ OPTIONAL_AUDIO_FILE = File(None)
 @dataclass(frozen=True)
 class ApiSettings:
     model: Path
+    adapter: Path | None
+    base_revision: str | None
     fast_all: bool | None
     fast_text_encoder: bool
     fast_backbone_prefill: bool
@@ -77,6 +79,8 @@ def _load_app(app: FastAPI, settings: ApiSettings) -> None:
         settings.model,
         device=resolve_device(),
         attn_implementation="eager",
+        adapter_root=settings.adapter,
+        base_revision=settings.base_revision,
     )
     update_generation_config_for_breeze(model)
 
@@ -214,6 +218,11 @@ def main() -> None:
         description="Serve Breeze TTS 2 streaming inference"
     )
     parser.add_argument("model", type=Path)
+    parser.add_argument("--adapter", type=Path)
+    parser.add_argument(
+        "--base-revision",
+        help="Exact base revision required by an adapter manifest",
+    )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=7860)
     parser.add_argument(
@@ -239,6 +248,8 @@ def main() -> None:
     global _settings
     _settings = ApiSettings(
         model=args.model,
+        adapter=args.adapter,
+        base_revision=args.base_revision,
         fast_all=args.fast_all,
         fast_text_encoder=args.fast_text_encoder,
         fast_backbone_prefill=args.fast_backbone_prefill,

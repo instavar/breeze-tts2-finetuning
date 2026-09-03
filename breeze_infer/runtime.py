@@ -73,6 +73,8 @@ def load_runtime(
     *,
     device: str,
     attn_implementation: str,
+    adapter_root: Path | None = None,
+    base_revision: str | None = None,
 ) -> tuple[AutoTokenizer, BreezeForConditionalGeneration, Any]:
 
     if device.startswith("cuda"):
@@ -93,6 +95,15 @@ def load_runtime(
         attn_implementation=attn_implementation,
     )
     model.to(device).eval()
+    if adapter_root is not None:
+        from breeze_infer.adapter import apply_adapter
+
+        apply_adapter(
+            model,
+            model_root=ckpt_dir,
+            adapter_root=adapter_root,
+            base_revision=base_revision,
+        )
 
     from qwen_tts import Qwen3TTSTokenizer
 
