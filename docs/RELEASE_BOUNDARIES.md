@@ -32,7 +32,7 @@ An organization's public branding or first-mover benefit can affect the
 commercial-purpose analysis. Do not infer that a public non-monetized download
 is automatically non-commercial.
 
-## v0.1.0 release decision
+## v0.1.0 source release and current model-artifact boundary
 
 Checked on 2026-09-02:
 
@@ -45,11 +45,33 @@ Checked on 2026-09-02:
 - public LoRA, full-SFT, merged, distilled, or other derivative weights were
   held back.
 
-The weight hold has two independent reasons. The stated first-mover Instavar
-branding purpose may be an indirect business benefit under version 1.1, so it
-requires written BreezeBlue authorization before public distribution. A public
-weight release also needs a training corpus with separately verified voice,
-recording, and redistribution rights. A technically successful private run is
-not evidence that either release gate has passed.
+The source-only scope of `v0.1.0` remains unchanged. A later review clarified
+that version 1.1 expressly permits distribution of LoRA and full-SFT
+Derivative Models for research or non-commercial purposes under Section 4.
+Publishing ordinary, non-monetized research through an organization's account
+does not by itself establish that commercial benefit is the release's primary
+purpose. Product, hosted-service, customer, production, advertising, revenue,
+or other business-directed use remains outside that free grant.
+
+The training material used in the checked research runs is from the IMDA
+National Speech Corpus. IMDA distributes that corpus under the Singapore Open
+Data Licence, which permits use, modification, adaptation, and distribution,
+subject to attribution. The corpus is therefore not treated as a blocker to a
+research or non-commercial derivative-model release.
+
+Model artifacts still belong in separate model repositories rather than this
+source repository. Before publishing one, build a fresh allowlisted bundle and
+verify it from a private staging repository. A LoRA bundle should contain only
+the selected adapter, its configuration, a sanitized provenance manifest, the
+complete BreezeBlue agreement, the required NOTICE, and a model card. A
+full-SFT bundle should contain only inference-required model, tokenizer, codec,
+and configuration files plus the same legal and provenance documents. Exclude
+optimizer, scheduler, trainer, RNG, source-audio, generated-audio, cache, log,
+credential, blind-key, and private-path artifacts.
+
+The safest operational order is to validate and release the smaller LoRA
+adapter first, then publish the full-SFT package after a clean independent
+download and inference check. Platform gating can reduce accidental access and
+record acknowledgement, but it does not change the governing agreement.
 
 This document is operational guidance, not legal advice.
