@@ -113,6 +113,39 @@ def create_output(output: Path) -> Path:
     return partial
 
 
+def refresh_model_card(args: argparse.Namespace) -> None:
+    checksums_path = args.bundle / "SHA256SUMS"
+    rows: list[tuple[str, str]] = []
+    for line in checksums_path.read_text().splitlines():
+        digest, relative_name = line.split("  ", 1)
+        rows.append((digest, relative_name))
+    checksum_map = {name: digest for digest, name in rows}
+    if "README.md" not in checksum_map:
+        raise ValueError("release checksum manifest does not contain README.md")
+    current_card = args.bundle / "README.md"
+    if sha256_file(current_card) != checksum_map["README.md"]:
+        raise ValueError("current model card differs from the release checksum manifest")
+    replacement = args.card.read_text()
+    for marker in FORBIDDEN_TEXT:
+        if marker in replacement:
+            raise ValueError(f"replacement model card contains private marker {marker}")
+
+    partial_card = current_card.with_name("README.md.partial")
+    partial_card.write_text(replacement)
+    partial_card.chmod(0o644)
+    os.replace(partial_card, current_card)
+    new_digest = sha256_file(current_card)
+    checksum_lines = [
+        f"{new_digest if name == 'README.md' else digest}  {name}"
+        for digest, name in rows
+    ]
+    partial_checksums = checksums_path.with_name("SHA256SUMS.partial")
+    partial_checksums.write_text("\n".join(checksum_lines) + "\n")
+    partial_checksums.chmod(0o644)
+    os.replace(partial_checksums, checksums_path)
+    print(args.bundle)
+
+
 def build_lora(args: argparse.Namespace) -> None:
     partial = create_output(args.output)
     expected_adapter_hash = args.adapter_sha256.lower()
@@ -234,6 +267,10 @@ def parse_args() -> argparse.Namespace:
     common(full)
     full.add_argument("--source", type=Path, required=True)
     full.set_defaults(run=build_full_sft)
+    refresh = subparsers.add_parser("refresh-card")
+    refresh.add_argument("--bundle", type=Path, required=True)
+    refresh.add_argument("--card", type=Path, required=True)
+    refresh.set_defaults(run=refresh_model_card)
     return parser.parse_args()
 
 

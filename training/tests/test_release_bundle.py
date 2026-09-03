@@ -8,7 +8,7 @@ import torch
 from safetensors.torch import save_file
 
 from breeze_infer.adapter import sha256_file
-from training.release_bundle import build_full_sft, build_lora
+from training.release_bundle import build_full_sft, build_lora, refresh_model_card
 
 
 def _docs(tmp_path):
@@ -83,3 +83,40 @@ def test_build_full_sft_rejects_training_role(tmp_path) -> None:
                 provenance=provenance,
             )
         )
+
+
+def test_refresh_model_card_updates_only_card_checksum(tmp_path) -> None:
+    base = _base(tmp_path)
+    adapter = tmp_path / "adapter.safetensors"
+    save_file({"layer.lora_A": torch.ones(1)}, adapter)
+    card, license_path, provenance = _docs(tmp_path)
+    output = tmp_path / "release"
+    build_lora(
+        Namespace(
+            output=output,
+            adapter=adapter,
+            adapter_sha256=sha256_file(adapter),
+            base_model_root=base,
+            base_model_id="BreezeBlue/Breeze-TTS-2",
+            base_revision="a" * 40,
+            card=card,
+            model_license=license_path,
+            provenance=provenance,
+        )
+    )
+    old_adapter_hash = sha256_file(output / "adapter.safetensors")
+    replacement = tmp_path / "replacement.md"
+    replacement.write_text("---\nlicense: other\n---\n# Updated\n")
+
+    refresh_model_card(Namespace(bundle=output, card=replacement))
+
+    assert (output / "README.md").read_text().endswith("# Updated\n")
+    assert sha256_file(output / "adapter.safetensors") == old_adapter_hash
+    checksum_map = {
+        name: digest
+        for digest, name in (
+            line.split("  ", 1)
+            for line in (output / "SHA256SUMS").read_text().splitlines()
+        )
+    }
+    assert checksum_map["README.md"] == sha256_file(output / "README.md")

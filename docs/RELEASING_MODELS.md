@@ -66,3 +66,16 @@ the original experiment paths. Verify:
 Only change visibility after these checks pass. Publish LoRA first, then the
 full-SFT checkpoint as a separate decision. Visibility changes do not revoke
 copies that were already downloaded.
+
+If a model card must change after a bundle is built but before release, refresh
+it without rebuilding the weights:
+
+```bash
+python -m training.release_bundle refresh-card \
+  --bundle /releases/sg-narration-lora-r8 \
+  --card release/lora/README.md
+```
+
+This command first verifies the current card against `SHA256SUMS`, replaces it
+atomically, and updates only the card's checksum entry. Use it for model-card
+metadata only, never to change model or adapter payloads.

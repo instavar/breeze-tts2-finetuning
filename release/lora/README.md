@@ -12,6 +12,14 @@ tags:
   - lora
   - singapore-english
   - non-commercial
+extra_gated_prompt: >-
+  This derivative is available only for research and non-commercial use under
+  the included BreezeBlue agreement. Gating records an acknowledgement but does
+  not replace the agreement or supply voice and recording rights.
+extra_gated_fields:
+  I will use this derivative only for research or non-commercial purposes: checkbox
+  I will not use it for impersonation, deception, or non-consensual voice cloning: checkbox
+  I have the rights and consent required for every reference voice and recording I use: checkbox
 ---
 
 # Instavar SG Narration LoRA R8
