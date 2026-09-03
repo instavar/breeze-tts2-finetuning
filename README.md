@@ -9,6 +9,15 @@ checkpoints, training audio, or generated speech.
 
 Instavar is not affiliated with or endorsed by BreezeBlue or RESONIA, INC.
 
+## Published research derivatives
+
+- [Instavar SG Narration LoRA R8](https://huggingface.co/instavar/sg-narration-lora-r8)
+- [Instavar SG Narration Full SFT](https://huggingface.co/instavar/sg-narration-full-sft)
+
+Both Hugging Face repositories are gated, non-commercial research releases.
+Their model cards document the exact base revision, selected checkpoint,
+training scope, checksums, evaluation limits, licence, and required notices.
+
 ## What is implemented
 
 | Capability | Implementation |
