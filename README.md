@@ -13,6 +13,8 @@ Instavar is not affiliated with or endorsed by BreezeBlue or RESONIA, INC.
 
 - [Instavar SG Narration LoRA R8](https://huggingface.co/instavar/sg-narration-lora-r8)
 - [Instavar SG Narration Full SFT](https://huggingface.co/instavar/sg-narration-full-sft)
+- [Breeze TTS 2 fine-tuning collection](https://huggingface.co/collections/instavar/breeze-tts-2-fine-tuning-by-instavar-6a9a9a9d15c0cacc893b3c55)
+- [Matched LoRA and full-SFT experiment report](https://instavar.com/research/tts/breeze-tts-2-lora-full-sft-singapore-english)
 
 Both Hugging Face repositories are gated, non-commercial research releases.
 Their model cards document the exact base revision, selected checkpoint,

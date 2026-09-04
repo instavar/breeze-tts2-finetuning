@@ -6,5 +6,5 @@ authors:
   - name: Instavar
 repository-code: "https://github.com/instavar/breeze-tts2-finetuning"
 license: Apache-2.0
-version: 0.1.0
-date-released: 2026-09-02
+version: 0.2.1
+date-released: 2026-09-04
